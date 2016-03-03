@@ -89,7 +89,7 @@ gulp.task('environment', function () {
   return gulp.src('app/*/constants/*config-const.js')
     .pipe(
       $.inject(
-        gulp.src('app/main/constants/env-' + options.env + '.json'),
+        gulp.src('app/core/constants/env-' + options.env + '.json'),
         {
           starttag: '/*inject-env*/',
           endtag: '/*endinject*/',
@@ -112,7 +112,7 @@ gulp.task('environment', function () {
 });
 
 gulp.task('build-vars', ['environment'], function () {
-  return gulp.src('app/*/constants/*config-const.js')
+  return gulp.src('app/*/core/*config-const.js')
     .pipe(
       $.inject(
         gulp.src(''),
