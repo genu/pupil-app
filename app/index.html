@@ -28,9 +28,9 @@
 
     <!-- the nav bar will be updated as we navigate between views -->
     <!-- <ion-nav-bar> can be removed when using sidemenu (contained in menu.html) -->
-    <ion-nav-bar class="bar-energized">
-      <ion-nav-back-button></ion-nav-back-button>
-    </ion-nav-bar>
+    <!--<ion-nav-bar class="bar-energized">-->
+      <!--<ion-nav-back-button></ion-nav-back-button>-->
+    <!--</ion-nav-bar>-->
     <!-- the current view will be rendered in the <ion-nav-view> directive -->
     <ion-nav-view></ion-nav-view>
 
@@ -50,17 +50,50 @@
     <script src="bower_components/angular-translate/angular-translate.js"></script>
     <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
     <script src="bower_components/localforage/dist/localforage.js"></script>
+    <script src="bower_components/ngmap/build/scripts/ng-map.js"></script>
+    <script src="bower_components/js-data/dist/js-data.js"></script>
+    <script src="bower_components/js-data-http/dist/js-data-http.js"></script>
+    <script src="bower_components/firebase/firebase.js"></script>
+    <script src="bower_components/js-data-firebase/dist/js-data-firebase.js"></script>
+    <script src="bower_components/js-data-angular/dist/js-data-angular.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
     <!-- build:js scripts/app.js -->
     <!-- inject:js -->
+
+    <script src="user/user.js"></script>
+
+    <script src="user/user.routes.js"></script>
+
+    <script src="user/controllers/user.controller.js"></script>
+
     <script src="main/main.js"></script>
+
     <script src="main/services/main-serv.js"></script>
+
     <script src="main/controllers/menu-ctrl.js"></script>
+
     <script src="main/controllers/debug-ctrl.js"></script>
-    <script src="main/constants/config-const.js"></script>
+
+    <script src="core/core.js"></script>
+
+    <script src="core/services/sideMenu.service.js"></script>
+
+    <script src="core/services/auth.service.js"></script>
+
+    <script src="core/core.routes.js"></script>
+
+    <script src="core/controllers/main.controller.js"></script>
+
+    <script src="core/controllers/core.controller.js"></script>
+
+    <script src="core/controllers/app.controller.js"></script>
+
+    <script src="core/constants/config-const.js"></script>
+
     <script src="app.js"></script>
+
     <!-- endinject -->
     <!-- endbuild -->
   </body>

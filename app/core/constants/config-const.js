@@ -1,11 +1,9 @@
 'use strict';
-angular.module('main')
-.constant('Config', {
-
+angular.module('app.core').constant('Config', {
   // gulp environment: injects environment vars
   ENV: {
     /*inject-env*/
-    'SERVER_URL': 'https://DEVSERVER/api'
+    'DB_URL': 'https://pupilapp.firebaseio.com'
     /*endinject*/
   },
 
@@ -14,5 +12,4 @@ angular.module('main')
     /*inject-build*/
     /*endinject*/
   }
-
 });
