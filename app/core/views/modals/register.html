@@ -1,0 +1,20 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-positive">
+    <h1 class="title">Register</h1>
+    <div class="buttons">
+      <button class="button" ng-click="hideRegister()">Cancel</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <div class="row">
+      <div class="col">
+        <formly-form model="core.registration" fields="core.fields.register"></formly-form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col text-center">
+        <button class="button button-balanced icon-left ion-person-add" ng-click="core.register(core.registration)">Create Account</button>
+      </div>
+    </div>
+  </ion-content>
+</ion-modal-view>
