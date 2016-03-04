@@ -1,0 +1,19 @@
+<ion-view view-title="Dash">
+  <ion-content>
+    <map
+      map-type-control="false"
+      zoom-control="false"
+      street-view-control="false"
+      center="{{dash.coords}}" style="height: 100%;">
+      <marker position="{{dash.coords}}"></marker>
+    </map>
+    <div class="dash-actions padding text-right">
+      <button class="button icon ion-navigate button-positive button-small" ng-click="dash.setCurrentLocation()"></button>
+      <button class="button button-block button-light">
+        <h4>CULC Starbucks</h4>
+        <h5>asdf</h5>
+      </button>
+      <button class="button button-block button-royal">Set Meetup</button>
+    </div>
+  </ion-content>
+</ion-view>
