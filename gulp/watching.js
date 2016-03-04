@@ -52,7 +52,7 @@ gulp.task('watch', ['inject-all'], function () {
   gulp.watch('app/*/styles/**/*.scss', ['styles']);
   // watch for changes in environment files and new config files
   gulp.watch([
-    'app/main/constants/env-*.json',
+    'app/core/constants/env-*.json',
     'app/*/constants/*config-const.js'
   ], ['environment']);
 });
