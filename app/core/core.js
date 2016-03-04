@@ -4,7 +4,8 @@ angular.module('app.core', [
     'ngCordova',
     'ui.router',
     'js-data',
-    'formly', 'formlyIonic'
+    'formly', 'formlyIonic',
+    'ngMap'
   ])
   .run(function (DS, DSFirebaseAdapter) {
     DS.registerAdapter('firebase', DSFirebaseAdapter, {default: true});
