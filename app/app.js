@@ -1,5 +1,6 @@
 'use strict';
 angular.module('Pupil', [
   'app.core',
-  'app.user'
+  'app.user',
+  'app.dash'
 ]);
