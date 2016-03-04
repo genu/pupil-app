@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app.core').controller('CoreCtrl', function ($scope, $ionicModal, RegisterFields, LoginFields, Auth) {
+angular.module('app.core').controller('CoreCtrl', function ($scope, $state, $ionicModal, RegisterFields, LoginFields, Auth) {
   this.fields = {
     register: RegisterFields,
     login: LoginFields
@@ -14,40 +14,22 @@ angular.module('app.core').controller('CoreCtrl', function ($scope, $ionicModal,
 
   this.register = function (registration) {
     Auth.register(registration.email, registration.password, registration.profile).then(function (user) {
-
+      $scope.modal.hide();
+      $state.go('app.main')
     })
   };
 
-
-  // Login Modal
-  $ionicModal.fromTemplateUrl('core/views/login.html', {
-    scope: $scope,
-    animation: 'slide-in-up'
-  }).then(function (modal) {
-    $scope.loginModal = modal;
-  });
-
-  // Register Modal
-  $ionicModal.fromTemplateUrl('core/views/register.html', {
-    scope: $scope,
-    animation: 'slide-in-up'
-  }).then(function (modal) {
-    $scope.registerModal = modal;
-  });
-
-  $scope.hideLogin = function () {
-    $scope.loginModal.hide();
+  this.showAuthModal = function (page) {
+    $ionicModal.fromTemplateUrl('core/views/modals/' + page + '.html', {
+      scope: $scope,
+      animation: 'slide-in-up'
+    }).then(function (modal) {
+      $scope.modal = modal;
+      modal.show();
+    });
   };
 
-  $scope.showLogin = function () {
-    $scope.loginModal.show();
+  $scope.hideModal = function () {
+    $scope.modal.hide();
   };
-
-  $scope.hideRegister = function () {
-    $scope.registerModal.hide();
-  };
-
-  $scope.showRegister = function () {
-    $scope.registerModal.show();
-  }
 });
