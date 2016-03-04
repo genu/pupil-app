@@ -1,13 +1,18 @@
 <ion-view>
   <ion-slides options="main.options.slides" slider="slider">
+
+    <ion-slide-page>
+      <button ng-click="showLogin()" class="button button-block button-positive">
+        Login
+      </button>
+      <button ng-click="showRegister()()" class="button button-block button-calm">
+        Register
+      </button>
+    </ion-slide-page>
     <ion-slide-page>
       <div class="box blue">
         <h1>intro</h1>
-        <a nav-transition="ios" href="#/core/login">Login</a>
       </div>
-    </ion-slide-page>
-    <ion-slide-page>
-      <div class="box yellow"><h1>login/register</h1></div>
     </ion-slide-page>
   </ion-slides>
 </ion-view>
