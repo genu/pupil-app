@@ -10,16 +10,39 @@
     <ion-nav-view name="pageContent"></ion-nav-view>
   </ion-side-menu-content>
   <ion-side-menu side="left">
-    <ion-header-bar class="bar-royal">
-      <h1 class="title">[profile img here]</h1>
+    <ion-header-bar class="bar-dark height-100">
+      <div class="row">
+        <div class="col text-center">
+          <img class="profile-image" src="http://lorempixel.com/image_output/people-q-c-60-60-9.jpg"/>
+        </div>
+      </div>
     </ion-header-bar>
-    <ion-content>
+    <ion-content scroll="false" class="top-100">
       <ion-list>
-        <ion-item ng-repeat="item in app.sideMenuItems" menu-close ui-sref="{{item.sref}}">
-          <i class="icon" ng-class="item.icon">
-            {{item.label}}
+        <ion-item
+          ng-repeat="item in app.sideMenuItems | orderBy:'order':false"
+          menu-close ui-sref="{{item.sref}}">
+          <i class="icon" ng-class="item.icon"></i>&nbsp;
+          {{item.label}}
+        </ion-item>
+        <ion-item class="item-toggle stable-bg">
+          <div class="item-content">
+            <i class="icon ion-university"></i>
+            Tutor Mode
+            <label class="toggle">
+              <input type="checkbox">
+              <div class="track">
+                <div class="handle"></div>
+              </div>
+            </label>
+          </div>
         </ion-item>
       </ion-list>
     </ion-content>
+    <ion-footer-bar class="bar-stable">
+      <button
+        style="margin: auto auto;"
+        class="button button-outline button-assertive icon ion-power"> Logout</button>
+    </ion-footer-bar>
   </ion-side-menu>
 </ion-side-menus>

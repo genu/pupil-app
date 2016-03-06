@@ -11,5 +11,5 @@ angular.module('app.dash')
             controller: 'DashCtrl as dash'
           }
         }
-      })
+      });
   });

@@ -20,5 +20,5 @@ angular.module('app.core').config(function ($stateProvider, $urlRouterProvider) 
       url: '/main',
       templateUrl: 'core/views/main.html',
       controller: 'MainCtrl as main'
-    })
+    });
 });
