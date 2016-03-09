@@ -1,0 +1,38 @@
+<ion-view view-title="Profile">
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-icon-left item-icon-right" ui-sref="app.profile_edit_name">
+        <i class="icon ion-ios-person"></i>
+        Name
+        <span class="item-note">{{profile.user.name}}</span>
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+      <ion-item class="item-icon-left item-icon-right">
+        <i class="icon ion-camera"></i>
+        Profile Picture
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+      <ion-item class="item-icon-left item-icon-right">
+        <i class="icon ion-email"></i>
+        Email
+        <span class="item-note">{{profile.user.email}}</span>
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+      <ion-item class="item-icon-left item-icon-right">
+        <i class="icon ion-ios-telephone"></i>
+        Phone
+        <span class="item-note">{{profile.user.phone}}</span>
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+      <ion-item class="item-divider">
+        Network
+      </ion-item>
+      <ion-item class="item-icon-left item-icon-right">
+        <i class="icon ion-university"></i>
+        School
+        <span class="item-note">{{profile.user.school}}</span>
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
