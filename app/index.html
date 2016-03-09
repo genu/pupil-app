@@ -14,7 +14,7 @@
 
   <!-- build:css styles/vendor.css -->
   <!-- bower:css -->
-  <link rel="stylesheet" href="bower_components/ionic/release/css/ionic.css" />
+  <link rel="stylesheet" href="bower_components/ionic/release/css/ionic.css"/>
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -60,8 +60,16 @@
 <script src="bower_components/api-check/dist/api-check.js"></script>
 <script src="bower_components/angular-formly/dist/formly.js"></script>
 <script src="bower_components/angular-formly-templates-ionic/dist/angular-formly-templates-ionic.js"></script>
+<script src="bower_components/angular-stamplay/angular-stamplay.js"></script>
+<script src="bower_components/underscore/underscore.js"></script>
+<script src="bower_components/store.js/store.js"></script>
+<script src="bower_components/q/q.js"></script>
+<script src="bower_components/stamplay-js-sdk/dist/stamplay.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
+<script type="text/javascript">
+  Stamplay.init("pupil")
+</script>
 
 <!-- build:js scripts/app.js -->
 <!-- inject:js -->
@@ -69,6 +77,8 @@
 <script src="user/user.js"></script>
 
 <script src="user/user.routes.js"></script>
+
+<script src="user/user.resource.js"></script>
 
 <script src="user/controllers/user.controller.js"></script>
 
@@ -83,6 +93,8 @@
 <script src="main/controllers/menu-ctrl.js"></script>
 
 <script src="main/controllers/debug-ctrl.js"></script>
+
+<script src="db/db.js"></script>
 
 <script src="dash/dash.js"></script>
 
