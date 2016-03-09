@@ -5,7 +5,7 @@ angular.module('app.dash').controller('DashCtrl', function ($cordovaGeolocation,
   $ionicLoading.show();
 
   NgMap.getMap().then(function (map) {
-    $ionicLoading.hide();
+
   });
 
   this.setCurrentLocation = function () {
