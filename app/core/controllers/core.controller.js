@@ -9,9 +9,10 @@ angular.module('app.core').controller('CoreCtrl', function ($scope, $state, $ion
   this.register = function (registration) {
     $ionicLoading.show();
     DS.adapters[DS.defaults.defaultAdapter].register(registration).then(function () {
-      $state.go('app.dash');
-      $ionicLoading.hide();
-      $scope.modal.hide();
+      $state.go('app.dash').then(function () {
+        $ionicLoading.hide();
+        $scope.modal.hide();
+      });
     }).catch(function (error) {
       $ionicLoading.hide();
       $ionicPopup.alert({
@@ -24,9 +25,10 @@ angular.module('app.core').controller('CoreCtrl', function ($scope, $state, $ion
   this.login = function (credentials) {
     $ionicLoading.show();
     DS.adapters[DS.defaults.defaultAdapter].login(credentials).then(function () {
-      $state.go('app.dash');
-      $ionicLoading.hide();
-      $scope.modal.hide();
+      $state.go('app.dash').then(function () {
+        $ionicLoading.hide();
+        $scope.modal.hide();
+      });
     }).catch(function (error) {
       $ionicLoading.hide();
       $ionicPopup.alert({
