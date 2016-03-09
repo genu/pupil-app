@@ -10,9 +10,8 @@ angular.module('app.core', [
     'ngMap',
     'ngStamplay'
   ])
-  .run(function (DS, DSFirebaseAdapter) {
+  .run(function (DS) {
     DS.registerAdapter('stamplay', new DSStamplayAdapter(), {default: true});
   })
-  .config(function (DSProvider, DSFirebaseAdapterProvider, Config) {
-    DSFirebaseAdapterProvider.defaults.basePath = Config.ENV.DB_URL;
+  .config(function (DSProvider, Config) {
   });
