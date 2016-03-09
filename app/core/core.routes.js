@@ -19,6 +19,11 @@ angular.module('app.core').config(function ($stateProvider, $urlRouterProvider) 
         user: function (DS) {
           return DS.adapters[DS.defaults.defaultAdapter].currentUser()
         }
+      },
+      onEnter: function ($state, user) {
+        if (!user) {
+          $state.go('core.main');
+        }
       }
     })
     .state('core.main', {
