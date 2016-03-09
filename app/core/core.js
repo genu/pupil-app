@@ -1,15 +1,17 @@
 'use strict';
 
 angular.module('app.core', [
-  'ionic',
-  'ngCordova',
-  'ui.router',
-  'js-data',
-  'formly', 'formlyIonic',
-  'ngMap'
-])
+    'app.db',
+    'ionic',
+    'ngCordova',
+    'ui.router',
+    'js-data',
+    'formly', 'formlyIonic',
+    'ngMap',
+    'ngStamplay'
+  ])
   .run(function (DS, DSFirebaseAdapter) {
-    DS.registerAdapter('firebase', DSFirebaseAdapter, {default: true});
+    DS.registerAdapter('stamplay', new DSStamplayAdapter(), {default: true});
   })
   .config(function (DSProvider, DSFirebaseAdapterProvider, Config) {
     DSFirebaseAdapterProvider.defaults.basePath = Config.ENV.DB_URL;

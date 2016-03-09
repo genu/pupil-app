@@ -14,7 +14,12 @@ angular.module('app.core').config(function ($stateProvider, $urlRouterProvider) 
       url: '/app',
       abstract: true,
       templateUrl: 'core/views/layouts/app.html',
-      controller: 'AppCtrl as app'
+      controller: 'AppCtrl as app',
+      resolve: {
+        user: function (DS) {
+          return DS.adapters[DS.defaults.defaultAdapter].currentUser()
+        }
+      }
     })
     .state('core.main', {
       url: '/main',

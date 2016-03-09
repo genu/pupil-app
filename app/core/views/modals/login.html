@@ -8,12 +8,12 @@
   <ion-content>
     <div class="row">
       <div class="col">
-        <formly-form model="core.login" fields="core.fields.login"></formly-form>
+        <formly-form model="core.credentials" fields="core.fields.login"></formly-form>
       </div>
     </div>
     <div class="row">
       <div class="col text-center">
-        <button class="button button-balanced icon-left ion-key" ng-click="core.auth(core.login)">Login</button>
+        <button class="button button-balanced icon-left ion-key" ng-click="core.login(core.credentials)">Login</button>
       </div>
     </div>
   </ion-content>
