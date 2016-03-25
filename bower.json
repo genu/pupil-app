@@ -19,7 +19,9 @@
     "angular-formly": "7.3.9",
     "angular-formly-templates-ionic": "^1.2.2",
     "angular-stamplay": "^0.0.2",
-    "stamplay-js-sdk": "^2.0.2"
+    "stamplay-js-sdk": "^2.0.2",
+    "ngMask": "angular-mask#^3.0.16",
+    "ui-leaflet": "^1.0.0"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.5",
