@@ -1,7 +1,7 @@
 'use strict';
 angular.module('Pupil', [
   'app.core',
-  'app.user',
+  'app.profile',
   'app.dash',
   'app.payment',
   'app.session'

@@ -1,0 +1,15 @@
+<ion-view view-title="School">
+  <ion-content>
+    <ion-list>
+      <label class="item item-input item-select">
+        <div class="input-label">Select School</div>
+        <select ng-model="profile.data.school" ng-options="school.name for school in profile.schools"></select>
+      </label>
+    </ion-list>
+    <div class="card">
+      <div class="item item-text-wrap">
+        <img src="{{profile.data.school.logo}}" width="100%">
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

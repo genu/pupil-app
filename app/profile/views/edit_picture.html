@@ -1,0 +1,17 @@
+<ion-view view-title="Profile Picture">
+  <ion-content>
+    <ion-list>
+      <div class="item">
+        <input type="file"
+               name="file"
+               ngf-select
+               ng-model="profile.data.profile_image"
+               ngf-pattern="'image/*'"
+               ngf-accept="'image/*'">
+        </input>
+        <button ng-click="profile.test(profile.data.profile_image)">Upload</button>
+        <!--<img ngf-thumbnail="profile.data.profile_image"/>-->
+      </div>
+    </ion-list>
+  </ion-content>
+</ion-view>

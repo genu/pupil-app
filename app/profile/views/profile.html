@@ -1,0 +1,40 @@
+<ion-view view-title="Profile">
+  <ion-nav-buttons side="right">
+    <button class="button" ng-click="profile.save(profile.data)">Save</button>
+  </ion-nav-buttons>
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-icon-left item-icon-right" ui-sref="app.profile_edit_name">
+        <i class="icon ion-ios-person"></i>
+        Name
+        <span class="item-note">{{profile.data.last_name}}, {{profile.data.first_name}}</span>
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+      <ion-item class="item-icon-left item-icon-right" ui-sref="app.profile_edit_picture">
+        <i class="icon ion-camera"></i>
+        Profile Picture
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+      <ion-item class="item-icon-left">
+        <i class="icon ion-email"></i>
+        Email
+        <span class="item-note">{{profile.data.user.email}}</span>
+      </ion-item>
+      <ion-item class="item-icon-left item-icon-right" ui-sref="app.profile_edit_phone">
+        <i class="icon ion-ios-telephone"></i>
+        Phone
+        <span class="item-note">{{profile.data.phone_number}}</span>
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+      <ion-item class="item-divider">
+        Network
+      </ion-item>
+      <ion-item class="item-icon-left item-icon-right" ui-sref="app.profile_edit_school">
+        <i class="icon ion-university"></i>
+        School
+        <span class="item-note">{{profile.data.school.name}}</span>
+        <i class="icon ion-ios-arrow-right"></i>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
