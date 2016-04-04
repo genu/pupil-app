@@ -7,6 +7,29 @@ angular.module('app.core').provider('DSStamplayAdapter', function DSStamplayAdap
 
   this.defaults = {};
 
+  /**
+   * Converts `hasOne` relations from a one element array to a direct reference
+   * @param objects
+   * @param relations
+   * @returns {*}
+   */
+  function convertRelations(objects, relations) {
+    objects = _.isArray(objects) ? objects : [objects];
+
+    _.forEach(relations, function (relation) {
+      if (relation.type === 'hasOne') {
+        // Convert all hasOne relations to direct references
+        _.forEach(objects, function (result) {
+          if (_.isArray(result[relation.localKey])) {
+            result[relation.localKey] = result[relation.localKey][0];
+          }
+        })
+      }
+    });
+
+    return objects;
+  }
+
   function DSStamplayAdapter(defaults, service, q, store, config, upload) {
     this.defaults = defaults;
     this.upload = upload;
@@ -100,7 +123,7 @@ angular.module('app.core').provider('DSStamplayAdapter', function DSStamplayAdap
       return this.currentUser();
     } else {
       this.service.Object(resourceConfig.endpoint).get({_id: id}).then(function (data) {
-        deferred.resolve(data.data[[0]]);
+        deferred.resolve(convertRelations(data.data, resourceConfig.relationList)[0]);
       }).catch(function (error) {
         debugger;
         deferred.reject(error);
@@ -142,13 +165,13 @@ angular.module('app.core').provider('DSStamplayAdapter', function DSStamplayAdap
 
       // Execute the query
       query.exec().then(function (results) {
-        deferred.resolve(results.data);
+        deferred.resolve(convertRelations(results.data, resourceConfig.relationList));
       }).catch(function (error) {
         deferred.reject(error);
       })
     } else {
       this.service.Object(resourceConfig.endpoint).get(params).then(function (response) {
-        deferred.resolve(response.data);
+        deferred.resolve(convertRelations(response.data, resourceConfig.relationList));
       }).catch(function (error) {
         deferred.reject(error);
       });
@@ -160,7 +183,7 @@ angular.module('app.core').provider('DSStamplayAdapter', function DSStamplayAdap
     var deferred = this.q.defer();
 
     this.service.Object(resourceConfig.endpoint).save(params).then(function (response) {
-      deferred.resolve(response);
+      deferred.resolve(convertRelations(response, resourceConfig.relationList)[0]);
     }).catch(function (error) {
       deferred.reject(error);
     });
@@ -171,7 +194,7 @@ angular.module('app.core').provider('DSStamplayAdapter', function DSStamplayAdap
     var deferred = this.q.defer();
 
     this.service.Object(resourceConfig.endpoint).update(id, attrs).then(function (response) {
-      deferred.resolve(response);
+      deferred.resolve(convertRelations(response, resourceConfig.relationList)[0]);
     }).catch(function (error) {
       deferred.reject(error);
     });
