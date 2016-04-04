@@ -14,8 +14,8 @@
 
   <!-- build:css styles/vendor.css -->
   <!-- bower:css -->
-  <link rel="stylesheet" href="bower_components/ionic/release/css/ionic.css"/>
-  <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css"/>
+  <link rel="stylesheet" href="bower_components/ionic/release/css/ionic.css" />
+  <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -71,6 +71,9 @@
 <script src="bower_components/a0-angular-storage/dist/angular-storage.js"></script>
 <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
 <script src="bower_components/angular-stripe/release/angular-stripe.js"></script>
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/card/lib/js/card.js"></script>
+<script src="bower_components/moment/moment.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
@@ -92,6 +95,10 @@
 <script src="payment/payment.js"></script>
 
 <script src="payment/payment.routes.js"></script>
+
+<script src="payment/fields/payment.fields.js"></script>
+
+<script src="payment/controllers/payment.controller.js"></script>
 
 <script src="main/main.js"></script>
 
@@ -115,9 +122,15 @@
 
 <script src="core/resources/user.resource.js"></script>
 
+<script src="core/resources/session.resource.js"></script>
+
 <script src="core/resources/school.resource.js"></script>
 
 <script src="core/resources/profile.resource.js"></script>
+
+<script src="core/resources/payment.resource.js"></script>
+
+<script src="core/resources/location.resource.js"></script>
 
 <script src="core/providers/stamplay.adapter.js"></script>
 
