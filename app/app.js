@@ -4,5 +4,6 @@ angular.module('Pupil', [
   'app.profile',
   'app.dash',
   'app.payment',
-  'app.session'
+  'app.session',
+  'app.classes'
 ]);
