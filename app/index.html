@@ -37,7 +37,9 @@
 
 <!-- will be a 404 during development -->
 <script src="cordova.js"></script>
+<!--Non-bower third party components-->
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script src="https://js.pusher.com/3.0/pusher.min.js"></script>
 
 <!-- build:js scripts/vendor.js -->
 <!-- bower:js -->
@@ -74,6 +76,7 @@
 <script src="bower_components/jquery/dist/jquery.js"></script>
 <script src="bower_components/card/lib/js/card.js"></script>
 <script src="bower_components/moment/moment.js"></script>
+<script src="bower_components/pusher-angular/lib/pusher-angular.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
@@ -132,6 +135,8 @@
 
 <script src="core/resources/location.resource.js"></script>
 
+<script src="core/resources/course.resource.js"></script>
+
 <script src="core/providers/stamplay.adapter.js"></script>
 
 <script src="core/fields/register.fields.js"></script>
@@ -149,6 +154,10 @@
 <script src="core/constants/config-const.js"></script>
 
 <script src="classes/classes.js"></script>
+
+<script src="classes/controllers/classes.controller.js"></script>
+
+<script src="classes/classes.routes.js"></script>
 
 <script src="app.js"></script>
 
