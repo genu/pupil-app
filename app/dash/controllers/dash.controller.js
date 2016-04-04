@@ -103,7 +103,12 @@ angular.module('app.dash').controller('DashCtrl', function ($scope, $ionicPopup,
   };
 
   this.cancelSession = function () {
-    this.session.DSDestroy().then(function (test) {
+    $ionicLoading.show();
+    this.session.DSDestroy().then(function () {
+      $ionicLoading.hide();
+      vm.session = Session.createInstance({
+        student_id: profile.id
+      });
       vm.sessionModal.hide();
       $ionicPopup.alert({
         title: "Cancelled",
@@ -111,6 +116,7 @@ angular.module('app.dash').controller('DashCtrl', function ($scope, $ionicPopup,
       })
     });
   };
+
   this.startSession = function (course, location) {
     this.session.course_id = course.id;
     this.session.location_id = location.id;
