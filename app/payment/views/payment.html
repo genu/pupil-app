@@ -1,0 +1,21 @@
+<ion-view view-title="Payment" cache-view="false">
+  <ion-content>
+    <div ng-if="payment.isUpdatingCard">
+      <formly-form model="payment.card" fields="payment.fields.card"></formly-form>
+    </div>
+    <div ng-if=!payment.isUpdatingCard>
+      <ion-list>
+        <ion-item class="item item-icon-right">
+          <span>****-****-****-{{payment.card.last4}}</span>
+          <i class="icon fa fa-cc-{{payment.card.brand | lowercase}} padding"></i>
+        </ion-item>
+      </ion-list>
+    </div>
+    <div class="padding">
+      <button ng-if="!payment.isUpdatingCard" class="button button-block button-balanced" ng-click="payment.isUpdatingCard = true">Edit Card</button>
+      <button ng-if="payment.isUpdatingCard" class="button button-block button-balanced" ng-click="payment.addCard(payment.card)">
+        {{payment.isUpdatingCard ? 'Edit' : 'Add'}} card
+      </button>
+    </div>
+  </ion-content>
+</ion-view>

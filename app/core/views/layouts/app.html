@@ -30,19 +30,28 @@
             <i class="icon ion-university"></i>
             Tutor Mode
             <label class="toggle">
-              <input type="checkbox">
+              <input type="checkbox" ng-model="app.profile.isAvailable" ng-change="app.toggleAvailability()">
               <div class="track">
                 <div class="handle"></div>
               </div>
             </label>
           </div>
         </ion-item>
+        <div ng-if="app.profile.isAvailable">
+          <ion-item menu-close ui-sref="app.classes">
+            <i class="icon ion-clipboard"></i>&nbsp; Manage classes
+          </ion-item>
+          <ion-item>
+            <i class="icon ion-upload"></i>&nbsp; Upload Transcripts
+          </ion-item>
+        </div>
       </ion-list>
     </ion-content>
     <ion-footer-bar class="bar-stable">
       <button
         style="margin: auto auto;"
-        class="button button-outline button-assertive icon ion-power" ng-click="app.logout()"> Logout</button>
+        class="button button-outline button-assertive icon ion-power" ng-click="app.logout()"> Logout
+      </button>
     </ion-footer-bar>
   </ion-side-menu>
 </ion-side-menus>

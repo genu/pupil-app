@@ -4,7 +4,7 @@ angular.module('app.core').value('LoginFields',
   [
     {
       key: 'email',
-      type: 'floating-input',
+      type: 'input',
       templateOptions: {
         type: 'text',
         label: 'Email Address',
@@ -14,7 +14,7 @@ angular.module('app.core').value('LoginFields',
     },
     {
       key: 'password',
-      type: 'floating-input',
+      type: 'input',
       templateOptions: {
         type: 'password',
         label: 'Password',

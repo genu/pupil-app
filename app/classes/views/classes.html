@@ -1,0 +1,15 @@
+<ion-view view-title="Classes">
+  <ion-content>
+    <ul class="list">
+      <li class="item item-toggle" ng-repeat="course in classes.courses">
+        {{course.name}}: {{course.title}}
+        <label class="toggle toggle-balanced">
+          <input type="checkbox"/>
+          <div class="track">
+            <div class="handle"></div>
+          </div>
+        </label>
+      </li>
+    </ul>
+  </ion-content>
+</ion-view>

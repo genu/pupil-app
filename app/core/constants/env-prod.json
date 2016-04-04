@@ -1,3 +1,4 @@
 {
-  "SERVER_URL": "https://PRODSERVER/api"
+  "SERVER_URL": "https://PRODSERVER/api",
+  "STRIPE_PUBLISHABLE_KEY": "pk_live_2lIAf1C6Ipry3iaQVFwJfpg4"
 }

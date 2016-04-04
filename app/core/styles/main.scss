@@ -1,5 +1,20 @@
+@import "../../bower_components/font-awesome/scss/font-awesome";
+
+.spinner svg {
+  width: 48px;
+  height: 48px;
+}
+
 .scroll-content > .scroll {
   height: 100%;
+}
+
+.dash-buttons-offset-130 {
+  bottom: 130px !important;
+}
+
+.dash-buttons-offset-186 {
+  bottom: 186px !important;
 }
 
 .dash-actions {

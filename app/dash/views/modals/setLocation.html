@@ -1,0 +1,13 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-positive">
+    <h1 class="title">Meeting location</h1>
+    <div class="buttons">
+      <button class="button" ng-click="dash.locationModal.hide()">Cancel</button>
+    </div>
+  </ion-header-bar>
+  <ion-content scroll="true">
+    <ion-list>
+      <ion-item ng-click="dash.setLocation(location)" ng-repeat="location in dash.locations">{{location.name}}</ion-item>
+    </ion-list>
+  </ion-content>
+</ion-modal-view>

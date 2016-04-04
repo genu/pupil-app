@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('app.core').controller('CoreCtrl', function ($scope, $state, $ionicLoading, $ionicModal, RegisterFields, $ionicPopup, LoginFields, DS, Auth) {
+angular.module('app.core').controller('CoreCtrl', function ($scope, $stamplay, store, $state, $ionicLoading, $ionicModal, Auth, RegisterFields, $ionicPopup, LoginFields, DS) {
   this.fields = {
     register: RegisterFields,
     login: LoginFields
@@ -8,31 +8,33 @@ angular.module('app.core').controller('CoreCtrl', function ($scope, $state, $ion
 
   this.register = function (registration) {
     $ionicLoading.show();
-    DS.adapters[DS.defaults.defaultAdapter].register(registration).then(function () {
-      $state.go('app.dash').then(function () {
+
+    DS.definitions.user.register(registration.credentials).then(function (user) {
+      registration.profile.user_id = user.id;
+      DS.create('profile', registration.profile).then(function (profile) {
         $ionicLoading.hide();
+        $state.go('app.dash');
         $scope.modal.hide();
-      });
+      })
     }).catch(function (error) {
       $ionicLoading.hide();
       $ionicPopup.alert({
         title: 'Registration Error',
         template: error.message
-      });
+      })
     });
   };
 
   this.login = function (credentials) {
     $ionicLoading.show();
-    DS.adapters[DS.defaults.defaultAdapter].login(credentials).then(function () {
-      $state.go('app.dash').then(function () {
-        $ionicLoading.hide();
-        $scope.modal.hide();
-      });
+    DS.definitions.user.login(credentials).then(function () {
+      $ionicLoading.hide();
+      $state.go('app.dash');
+      $scope.modal.hide();
     }).catch(function (error) {
       $ionicLoading.hide();
       $ionicPopup.alert({
-        title: 'Login Error',
+        title: "Login Error",
         template: error.message
       })
     });
@@ -49,6 +51,8 @@ angular.module('app.core').controller('CoreCtrl', function ($scope, $state, $ion
   };
 
   $scope.hideModal = function () {
-    $scope.modal.hide();
+    $scope.modal.hide().then(function () {
+      $state.go('app.dash');
+    })
   };
 });

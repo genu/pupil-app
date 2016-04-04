@@ -16,13 +16,22 @@ angular.module('app.core').config(function ($stateProvider, $urlRouterProvider) 
       templateUrl: 'core/views/layouts/app.html',
       controller: 'AppCtrl as app',
       resolve: {
-        user: function (DS) {
-          return DS.adapters[DS.defaults.defaultAdapter].currentUser()
-        }
-      },
-      onEnter: function ($state, user) {
-        if (!user) {
-          $state.go('core.main');
+        user: function (User) {
+          return User.currentUser();
+        },
+        schools: function (School) {
+          return School.findAll();
+        },
+        profile: function (Profile, user) {
+          return Profile.findAll({
+            where: {
+              user_id: {
+                '==': user.id
+              }
+            }
+          }).then(function (profile) {
+            return profile[0].DSLoadRelations(['school', 'user']);
+          });
         }
       }
     })

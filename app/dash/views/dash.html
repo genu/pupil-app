@@ -1,19 +1,29 @@
-<ion-view view-title="Dash">
+<ion-view view-title="{{(app.profile.isAvailable) ? 'Tutor Mode' : 'Find a Tutor'}}" cache-view="false">
   <ion-content scroll="false">
-    <map
-      map-type-control="false"
-      zoom-control="false"
-      street-view-control="false"
-      center="{{dash.coords}}" style="height: 100%;">
-      <marker position="{{dash.coords}}"></marker>
-    </map>
-    <div class="dash-actions padding text-right">
+    <leaflet
+      markers="dash.map.markers"
+      center="dash.map.center"
+      height="100%"
+      width="100%">
+    </leaflet>
+    <div class="dash-actions padding text-right"
+         ng-class="{'dash-buttons-offset-186': !app.profile.isAvailable && dash.locationSet && dash.courseSet, 'dash-buttons-offset-130': (!app.profile.isAvailable) && (!dash.locationSet || !dash.courseSet)}">
       <button class="button icon ion-pinpoint button-positive button-small" ng-click="dash.setCurrentLocation()"></button>
-      <button class="button button-block button-light">
-        <h4>CULC Starbucks</h4>
-        <h5>asdf</h5>
+    </div>
+    <!--Pupil Actions-->
+    <div class="padding dash-actions" ng-if="!app.profile.isAvailable">
+      <button class="button button-block button-light" ng-click="dash.selectCourse()">
+        <h4 ng-if="!dash.courseSet">Course</h4>
+        <h4 ng-if="dash.courseSet">{{dash.course.name}}</h4>
       </button>
-      <button class="button button-block button-royal">Set Meetup</button>
+      <button class="button button-block button-light" ng-click="dash.selectLocation()">
+        <h4 ng-if="!dash.locationSet">Location</h4>
+        <h4 ng-if="dash.locationSet">{{dash.location.name}}</h4>
+      </button>
+      <button ng-if="dash.locationSet && dash.courseSet" class="button button-block button-royal"
+              ng-click="dash.startSession(dash.course, dash.location)">
+        Request Tutor
+      </button>
     </div>
   </ion-content>
 </ion-view>

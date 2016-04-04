@@ -95,12 +95,14 @@ angular.module('app.core').provider('DSStamplayAdapter', function DSStamplayAdap
   // Objects
   DSStamplayAdapter.prototype.find = function (resourceConfig, id, options) {
     var deferred = this.q.defer();
+
     if (resourceConfig.name === 'user') {
       return this.currentUser();
     } else {
       this.service.Object(resourceConfig.endpoint).get({_id: id}).then(function (data) {
         deferred.resolve(data.data[[0]]);
       }).catch(function (error) {
+        debugger;
         deferred.reject(error);
       });
     }
@@ -109,6 +111,7 @@ angular.module('app.core').provider('DSStamplayAdapter', function DSStamplayAdap
   };
   DSStamplayAdapter.prototype.findAll = function (resourceConfig, params, options) {
     var deferred = this.q.defer();
+
     if (resourceConfig.name === 'user') {
       this.currentUser().then(function (user) {
         deferred.resolve([user]);
@@ -169,6 +172,17 @@ angular.module('app.core').provider('DSStamplayAdapter', function DSStamplayAdap
 
     this.service.Object(resourceConfig.endpoint).update(id, attrs).then(function (response) {
       deferred.resolve(response);
+    }).catch(function (error) {
+      deferred.reject(error);
+    });
+
+    return deferred.promise;
+  };
+  DSStamplayAdapter.prototype.destroy = function (resourceConfig, id, options) {
+    var deferred = this.q.defer();
+
+    this.service.Object(resourceConfig.endpoint).remove(id).then(function (data) {
+      deferred.resolve(data);
     }).catch(function (error) {
       deferred.reject(error);
     });

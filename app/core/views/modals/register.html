@@ -5,16 +5,14 @@
       <button class="button" ng-click="hideModal()">Cancel</button>
     </div>
   </ion-header-bar>
-  <ion-content>
-    <div class="row">
-      <div class="col">
-        <formly-form model="core.registration" fields="core.fields.register"></formly-form>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col text-center">
-        <button class="button button-balanced icon-left ion-person-add" ng-click="core.register(core.registration)">Create Account</button>
-      </div>
-    </div>
+  <ion-content class="padding">
+    <ion-list>
+      <formly-form model="core.registration" fields="core.fields.register" form="core.registrationForm"></formly-form>
+    </ion-list>
+    <button ng-disabled="!core.registrationForm.$dirty || !core.registrationForm.$valid"
+            class="button button-block button-balanced"
+            ng-click="core.register(core.registration)">
+      Create Account
+    </button>
   </ion-content>
 </ion-modal-view>

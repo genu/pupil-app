@@ -5,16 +5,10 @@
       <button class="button" ng-click="hideModal()">Cancel</button>
     </div>
   </ion-header-bar>
-  <ion-content>
-    <div class="row">
-      <div class="col">
-        <formly-form model="core.credentials" fields="core.fields.login"></formly-form>
-      </div>
+  <ion-content class="padding">
+    <div class="list list-inset">
+      <formly-form model="core.credentials" fields="core.fields.login"></formly-form>
     </div>
-    <div class="row">
-      <div class="col text-center">
-        <button class="button button-balanced icon-left ion-key" ng-click="core.login(core.credentials)">Login</button>
-      </div>
-    </div>
+    <button class="button button-block button-balanced" ng-click="core.login(core.credentials)">Login</button>
   </ion-content>
 </ion-modal-view>

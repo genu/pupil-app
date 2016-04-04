@@ -1,17 +1,36 @@
 'use strict';
 
 angular.module('app.core', [
-    'app.db',
     'ionic',
     'ngCordova',
-    'ui.router',
+    'nemLogging',
+    'ui.router', 'ui-leaflet',
     'js-data',
     'formly', 'formlyIonic',
     'ngMap',
-    'ngStamplay'
+    'ngStamplay',
+    'ngMask',
+    'angular-storage',
+    'angular-stripe',
+    'pusher-angular'
   ])
-  .run(function (DS) {
-    DS.registerAdapter('stamplay', new DSStamplayAdapter(), {default: true});
+  .run(function ($rootScope, $stamplay, DS, Config, DSStamplayAdapter, $pusher) {
+    // Stamplay.init(Config.ENV.APP_ID);
+    DS.registerAdapter('stamplay', DSStamplayAdapter, {default: true});
+
+    // Initialize pusher
+    window.client = new Pusher(Config.ENV.PUSHER_KEY);
   })
-  .config(function (DSProvider, Config) {
+  .config(function (formlyConfigProvider, DSProvider, DSHttpAdapterProvider, DSStamplayAdapterProvider, Config, stripeProvider) {
+    // Configure Stamplay adapter
+    DSStamplayAdapterProvider.defaults.appid = Config.ENV.APP_ID;
+
+    // Configure Stripe
+    stripeProvider.setPublishableKey(Config.ENV.STRIPE_PUBLISHABLE_KEY);
+
+    // Configure Formly
+    formlyConfigProvider.setType({
+      name: 'item-divider',
+      template: '<ion-item class="item-divider">{{options.templateOptions.label}}</ion-item>'
+    });
   });
