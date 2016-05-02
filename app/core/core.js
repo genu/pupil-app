@@ -12,7 +12,8 @@ angular.module('app.core', [
     'ngMask',
     'angular-storage',
     'angular-stripe',
-    'pusher-angular'
+    'pusher-angular',
+    'ionic.rating'
   ])
   .run(function ($rootScope, $stamplay, DS, Config, DSStamplayAdapter, $pusher) {
     // Stamplay.init(Config.ENV.APP_ID);

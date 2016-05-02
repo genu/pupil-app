@@ -1,0 +1,32 @@
+<ion-view view-title="Find a Tutor" hide-back-button="true">
+  <ion-content>
+    <leaflet
+      id="map-canvas"
+      markers="dash.map.markers"
+      center="dash.map.center"
+      controls="dash.map.controls"
+      height="100%"
+      width="100%">
+    </leaflet>
+    <div class="dash-actions padding text-right dash-buttons-offset-130"
+         ng-class="{'dash-buttons-offset-186': dash.session.location && dash.session.course}">
+      <button class="button icon ion-pinpoint button-positive button-small"></button>
+    </div>
+    <div class="padding dash-actions">
+      <button class="button button-block button-light" ng-click="studentDash.selectCourse()">
+        <h4 ng-if="!dash.session.course">Course</h4>
+        <h4 ng-if="dash.session.course">{{dash.session.course.name}}</h4>
+      </button>
+      <button class="button button-block button-light" ng-click="studentDash.selectLocation()">
+        <h4 ng-if="!dash.session.location">Location</h4>
+        <h4 ng-if="dash.session.location">{{dash.session.location.name}}</h4>
+      </button>
+      <button
+        ng-click="studentDash.requestTutor(dash.session)"
+        ng-if="dash.session.location && dash.session.course"
+        class="button button-block button-royal">
+        Request Tutor
+      </button>
+    </div>
+  </ion-content>
+</ion-view>

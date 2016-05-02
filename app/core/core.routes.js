@@ -16,6 +16,9 @@ angular.module('app.core').config(function ($stateProvider, $urlRouterProvider) 
       templateUrl: 'core/views/layouts/app.html',
       controller: 'AppCtrl as app',
       resolve: {
+        geo: function ($cordovaGeolocation) {
+          return $cordovaGeolocation.getCurrentPosition({timeout: 10000, enableHighAccuracy: true});
+        },
         user: function (User) {
           return User.currentUser();
         },

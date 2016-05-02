@@ -1,1 +1,23 @@
-transcripts
+<ion-view view-title="Transcripts">
+  <ion-nav-buttons side="right">
+    <button class="button icon ion-plus" ng-click="transcripts.add()"></button>
+  </ion-nav-buttons>
+  <ion-content>
+    <ion-list>
+      <ion-item ng-if="transcripts.data.length === 0">
+        No transcripts found
+      </ion-item>
+      <ion-item ng-repeat="transcript in transcripts.data | orderBy:'dt_create':true">
+        {{transcript.dt_create | date:short}}
+        <span class="badge"
+              ng-class="{'badge-energized': transcript.status === 0, 'badge-dark': transcript.status === 1, 'badge-balanced': transcript.status === 2}">
+          <span ng-switch="transcript.status">
+            <span ng-switch-when="2">Active</span>
+            <span ng-switch-when="1">Inactive</span>
+            <span ng-switch-when="0">Pending</span>
+          </span>
+        </span>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

@@ -6,38 +6,35 @@ angular.module('app.dash')
       .state('app.dash', {
         url: '/dash',
         views: {
-          'pageContent': {
+          pageContent: {
             templateUrl: 'dash/views/dash.html',
             controller: 'DashCtrl as dash',
             resolve: {
-              locations: function (profile, Location) {
-                return Location.findAll({
-                  where: {
-                    school_id: {
-                      '==': profile.school.id
-                    }
-                  }
-                })
-              },
-              courses: function (Course) {
-                return Course.findAll();
-              },
-              tutorsQuery: function () {
-                return {
-                  where: {
-                    isAvailable: {
-                      '==': true
-                    },
-                    isTutor: {
-                      '==': true
-                    }
-                  }
-                }
-              },
-              tutors: function (tutorsQuery, Profile) {
-                return Profile.findAll(tutorsQuery)
+              geo: function ($cordovaGeolocation) {
+                return $cordovaGeolocation.getCurrentPosition({timeout: 10000, enableHighAccuracy: true});
               }
             }
+          }
+        }
+      })
+      .state('app.dash.tutor', {
+        url: '/tutor',
+        templateUrl: 'dash/views/tutor.html',
+        controller: 'TutorDashCtrl as tutorDash'
+      })
+      .state('app.dash.student', {
+        url: '/student',
+        templateUrl: 'dash/views/student.html',
+        controller: 'StudentDashCtrl as studentDash',
+        resolve: {
+          tutors: function (Profile) {
+            return Profile.findAll({
+              where: {
+                isAvailable: {
+                  '==': true
+                }
+              }
+            })
           }
         }
       });

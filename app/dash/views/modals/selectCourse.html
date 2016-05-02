@@ -1,0 +1,19 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-positive">
+    <h1 class="title">Course</h1>
+    <div class="buttons">
+      <button class="button" ng-click="studentDash._closeModal()">Cancel</button>
+    </div>
+  </ion-header-bar>
+  <ion-content scroll="true">
+    <ion-list>
+      <ion-radio
+        ng-model="dash.session.course"
+        ng-value="course"
+        ng-click="studentDash._closeModal()"
+        ng-repeat="course in studentDash.courses">
+        {{course.name}}: {{course.title}}
+      </ion-radio>
+    </ion-list>
+  </ion-content>
+</ion-modal-view>

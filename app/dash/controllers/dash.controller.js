@@ -1,172 +1,94 @@
 'use strict';
 
-angular.module('app.dash').controller('DashCtrl', function ($scope, $ionicPopup, $pusher, Session, Profile, profile, tutorsQuery, tutors, courses, locations, $ionicModal, $cordovaGeolocation, $ionicLoading, leafletData) {
+angular.module('app.dash').controller('DashCtrl', function ($scope, $window, $ionicPlatform, $ionicPopup, $timeout, PusherInstance, Session, Profile, profile, $ionicModal, $cordovaGeolocation, $ionicLoading, leafletData, geo) {
   var vm = this;
 
-  this.tutors = tutors;
-  this.profile = profile;
-  this.locations = locations;
-  this.courses = courses;
-  this.locationSet = false;
-  this.courseSet = false;
-  this.session = Session.createInstance({
-    student_id: profile.id
-  });
-
+  this.session = Session.createInstance();
   this.map = {
-    center: {},
-    defaults: {},
+    center: {
+      lat: geo.coords.latitude,
+      lng: geo.coords.longitude,
+      zoom: 17
+    },
+    controls: {},
+    defaults: {
+      attributionControl: false
+    },
     markers: {
-      tutor: {
-        lat: 33.77719,
-        lng: -84.39620,
-        icon: {
-          iconUrl: 'dash/assets/tutor.jpg',
-          iconSize: [38, 38],
-          iconAnchor: [38, 38]
-        }
+      _user: {
+        lat: geo.coords.latitude,
+        lng: geo.coords.longitude,
+        draggable: false,
+        focus: true
       }
     }
   };
 
-  if (!_.isUndefined(profile._geolocation)) {
-    this.map.center = {
-      lat: profile._geolocation.coordinates[1],
-      lng: profile._geolocation.coordinates[0],
-      zoom: 12
-    };
-
-    this.map.markers.my_location = {
-      lat: profile._geolocation.coordinates[1],
-      lng: profile._geolocation.coordinates[0],
-      draggable: false,
-      focus: true
-    };
-
-    if (!profile.isAvailable) {
-      this.map.markers.my_location.message = this.tutors.length + ' tutors near you';
+  this.navigate = function (label, geo_location) {
+    if ($ionicPlatform.is('ios')) {
+      $window.open("http://maps.apple.com/?q=" + label + '&ll=' + geo_location.coordinates[0] + ',' + geo_location.coordinates[1], "_system", "location=yes")
     }
-  }
+  };
 
-  $pusher(client).subscribe('session').bind('new_session', function (student) {
-    if (vm.profile.isAvailable) {
-      Profile.find(student.student_id).then(function (_student) {
-        $ionicPopup.alert({
-          title: "Tutoring Request",
-          template: _student.fullName + ' needs help '
+  // Remove Leaflet Attribution
+  leafletData.getMap('map-canvas').then(function (map) {
+    map.attributionControl.removeAttribution('&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors');
+    map.attributionControl.setPrefix('');
+  });
+
+  // Pusher Events
+  PusherInstance.subscribe('session').bind('changed', function (session) {
+    if (session.id === vm.session.id) {
+      Session.find(session.id, {bypassCache: true}).then(function (session) {
+        session.DSLoadRelations(['profile', 'location', 'course']).then(function (session) {
+          vm.session = session;
         })
-      });
-    }
-  });
-
-  $pusher(client).subscribe('tutors').bind('tutor_availability_changed', function (data) {
-    Profile.refreshAll(tutorsQuery).then(function (tutors) {
-      vm.tutors = tutors;
-    })
-  });
-
-  $ionicLoading.show();
-  this.setLocation = function (location) {
-    this.location = location;
-    this.locationSet = true;
-    this.locationModal.hide().then(function () {
-      vm.locationModal.remove();
-    })
-  };
-
-  this.setCourse = function (course) {
-    this.course = course;
-    this.courseSet = true;
-    this.courseModal.hide().then(function (modal) {
-      vm.courseModal.remove();
-    })
-  };
-
-  this.selectLocation = function () {
-    $ionicModal.fromTemplateUrl('dash/views/modals/setLocation.html', {
-      scope: $scope,
-      animation: 'slide-in-up'
-    }).then(function (modal) {
-      vm.locationModal = modal;
-      modal.show();
-    })
-  };
-
-  this.selectCourse = function () {
-    $ionicModal.fromTemplateUrl('dash/views/modals/setCourse.html', {
-      scope: $scope,
-      animation: 'slide-in-up'
-    }).then(function (modal) {
-      vm.courseModal = modal;
-      modal.show();
-    })
-  };
-
-  this.cancelSession = function () {
-    $ionicLoading.show();
-    this.session.DSDestroy().then(function () {
-      $ionicLoading.hide();
-      vm.session = Session.createInstance({
-        student_id: profile.id
-      });
-      vm.sessionModal.hide();
-      $ionicPopup.alert({
-        title: "Cancelled",
-        template: "Tutor Request Cancelled"
       })
-    });
-  };
-
-  this.startSession = function (course, location) {
-    this.session.course_id = course.id;
-    this.session.location_id = location.id;
-
-    $ionicModal.fromTemplateUrl('dash/views/modals/findTutor.html', {
-      scope: $scope,
-      animation: 'slide-in-up'
-    }).then(function (modal) {
-      vm.sessionModal = modal;
-      modal.show();
-    });
-
-    this.session.DSCreate().then(function (session) {
-      vm.session = session;
-    });
-  };
-
-  this.getSessionState = function () {
-    if (_.isUndefined(this.session.tutor)) {
-      return 'Finding Tutor...';
-    } else if (!_.isUndefined(this.session.start)) {
-      return 'Session Started';
     }
-  };
+  });
 
-  this.setCurrentLocation = function () {
-    $ionicLoading.show();
-    $cordovaGeolocation
-      .getCurrentPosition({timeout: 10000, enableHighAccuracy: true})
-      .then(function (position) {
-        $ionicLoading.hide();
-        vm.map.center = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-          zoom: 18
-        };
-
-        vm.map.markers.my_location = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-          draggable: false,
-          focus: true
-        };
-
-        if (!profile.isAvailable) {
-          vm.map.markers.my_location.message = vm.tutors.length + ' tutors near you';
-        }
-
-      });
-  };
-
-  this.setCurrentLocation();
+  //
+  // this.cancelSession = function () {
+  //   $ionicLoading.show();
+  //   this.session.DSDestroy().then(function () {
+  //     $ionicLoading.hide();
+  //     vm.session = Session.createInstance({
+  //       student_id: profile.id
+  //     });
+  //     vm.findTutorModal.hide();
+  //     $ionicPopup.alert({
+  //       title: "Cancelled",
+  //       template: "Tutor Request Cancelled"
+  //     })
+  //   });
+  // };
+  //
+  // this.setCurrentLocation = function () {
+  //   $ionicLoading.show();
+  //   $cordovaGeolocation
+  //     .getCurrentPosition({timeout: 10000, enableHighAccuracy: true})
+  //     .then(function (position) {
+  //       $timeout(function () {
+  //         $ionicLoading.hide();
+  //       }, 500);
+  //
+  //       vm.map.center = {
+  //         lat: position.coords.latitude,
+  //         lng: position.coords.longitude,
+  //         zoom: 17
+  //       };
+  //
+  //       vm.map.markers.my_location = {
+  //         lat: position.coords.latitude,
+  //         lng: position.coords.longitude,
+  //         draggable: false,
+  //         focus: true
+  //       };
+  //
+  //       if (!profile.isAvailable) {
+  //         vm.map.markers.my_location.message = vm.tutors.length + ' tutors near you';
+  //       }
+  //
+  //     });
+  // };
 });

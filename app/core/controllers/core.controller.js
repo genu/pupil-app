@@ -29,7 +29,7 @@ angular.module('app.core').controller('CoreCtrl', function ($scope, $stamplay, s
     $ionicLoading.show();
     DS.definitions.user.login(credentials).then(function () {
       $ionicLoading.hide();
-      $state.go('app.dash');
+      $state.go('app.dash.student');
       $scope.modal.hide();
     }).catch(function (error) {
       $ionicLoading.hide();

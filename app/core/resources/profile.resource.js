@@ -15,8 +15,7 @@ angular.module('app.core')
           school: {
             localField: 'school',
             localKey: 'school_id'
-          }
-          ,
+          },
           user: {
             localField: 'user',
             localKey: 'user_id'

@@ -40,3 +40,24 @@
   border: 1px solid #FFFFFF;
   width: 70px;
 }
+
+.no-margin {
+  margin: 0 !important;
+}
+
+.profile-round {
+  border-radius: 100px;
+  box-shadow: 1px 1px 4px black;
+}
+
+//Rating
+ul.rating li {
+  display: inline;
+  border: 0px;
+  background: none;
+  padding: 5px 10px;
+}
+
+ul.rating li i {
+  font-size: 35px;
+}

@@ -1,0 +1,82 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-positive">
+    <h1 class="title">
+      <span ng-switch="dash.session.state">
+        <span ng-switch-when="2">Navigate</span>
+        <span ng-switch-when="3">Session Started</span>
+        <span ng-switch-when="4">Session Finished</span>
+      </span>
+    </h1>
+    <div class="buttons" ng-if="dash.session.state < 3">
+      <button class="button" ng-click="tutorDash.cancelSession()">Cancel</button>
+    </div>
+  </ion-header-bar>
+  <ion-content scroll="false">
+    <div class="list card no-margin">
+      <div class="item text-center" ng-if="dash.session.state < 3">
+        <h1>{{dash.session.student.fullName}}</h1>
+      </div>
+      <div class="item text-center" ng-if="dash.session.state < 3">
+        <img class="profile-round" style="width: 147px; height: 147px;" src="{{dash.session.student.profile_image}}"/>
+      </div>
+      <div class="item item-body" ng-if="dash.session.state < 3">
+        <div class="row">
+          <div class="col text-right">
+            <strong>Class:</strong>
+          </div>
+          <div class="col text-left">{{dash.session.course.name}}</div>
+        </div>
+        <div class="row">
+          <div class="col text-right">
+            <strong>Location:</strong>
+          </div>
+          <div class="col">{{dash.session.location.name}}</div>
+        </div>
+      </div>
+      <div class="item item-body" ng-if="dash.session.state === 3">
+        <div class="row">
+          <div class="col text-center">
+            <h1 style="margin: 0;">{{tutorDash.sessionLength}}</h1>
+          </div>
+        </div>
+      </div>
+      <div class="item item-body" ng-if="dash.session.state === 4">
+        <div class="row">
+          <div class="col text-center">
+            <h2>Rate your experience</h2>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-center">
+            <rating ng-model="dash.session.student_rating" max="'5'"></rating>
+          </div>
+        </div>
+      </div>
+      <div class="item tabs tabs-icon-left item-divider" ng-if="dash.session.state < 3">
+        <a class="tab-item" ng-href="tel:+1{{dash.session.student.phone_number}}">
+          <i class="icon ion-ios-telephone"></i> Call {{dash.session.student.first_name}}
+        </a>
+        <a class="tab-item" ng-click="dash.navigate(dash.session.location.name, dash.session.location._geolocation)">
+          <i class="icon ion-map"></i> Navigate
+        </a>
+      </div>
+      <div class="item" style="position: fixed; bottom: 0; width: 100%">
+        <button class="button button-block button-royal"
+                ng-if="dash.session.state === 2"
+                ng-click="tutorDash.startSession(dash.session)">
+          Start Session
+        </button>
+        <button class="button button-block button-balanced"
+                ng-if="dash.session.state === 3"
+                ng-click="tutorDash.endSession(dash.session)">
+          Finish Session
+        </button>
+        <button class="button button-block button-positive"
+                ng-if="dash.session.state === 4"
+                ng-click="tutorDash.rateSession(dash.session)">
+          Finish Session
+        </button>
+      </div>
+    </div>
+  </ion-content>
+</ion-modal-view>
