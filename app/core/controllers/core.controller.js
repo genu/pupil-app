@@ -8,13 +8,17 @@ angular.module('app.core').controller('CoreCtrl', function ($scope, $stamplay, s
 
   this.register = function (registration) {
     $ionicLoading.show();
-
+    // A promise always has the methods .then(), .catch(), and .finally() (or .done() )
     DS.definitions.user.register(registration.credentials).then(function (user) {
       registration.profile.user_id = user.id;
       DS.create('profile', registration.profile).then(function (profile) {
         $ionicLoading.hide();
         $state.go('app.dash');
         $scope.modal.hide();
+      }).catch(function(error){
+        console.log("Can't create profile...sorry");
+      }).finally(function(){
+        // Runs all the time
       })
     }).catch(function (error) {
       $ionicLoading.hide();
